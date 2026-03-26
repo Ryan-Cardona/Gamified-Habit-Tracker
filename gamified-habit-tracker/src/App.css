@@ -6,11 +6,51 @@
   background: var(--color-bg);
 }
 
+/* ── Header ── */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  padding-top: calc(var(--space-4) + env(safe-area-inset-top));
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+}
+
+.header-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary-light);
+}
+
+.header-user {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* ── Main content ── */
 .app-main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding-bottom: env(safe-area-inset-bottom);
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-5);
+  padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom));
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.home-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-loading {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  padding: var(--space-8) 0;
 }
 
 /* ── Splash / loading screen ── */
@@ -42,61 +82,6 @@
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1);    opacity: 1;   }
+  0%, 100% { transform: scale(1);     opacity: 1;   }
   50%       { transform: scale(1.15); opacity: 0.7; }
-}
-
-/* ── Placeholder screen ── */
-.placeholder-screen {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-5);
-  padding: var(--space-6);
-  text-align: center;
-}
-
-.drop-icon {
-  font-size: 64px;
-  line-height: 1;
-}
-
-.placeholder-screen h1 {
-  font-size: 2rem;
-  color: var(--color-primary);
-}
-
-/* ── User identity card ── */
-.user-card {
-  width: 100%;
-  max-width: 320px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-}
-
-.user-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-text-muted);
-}
-
-.user-name {
-  font-size: 1.375rem;
-  font-weight: 700;
-  color: var(--color-primary-light);
-}
-
-.user-id {
-  font-size: 0.75rem;
-  font-family: monospace;
-  color: var(--color-text-muted);
-}
-
-.hint {
-  font-size: 0.85rem;
-  color: var(--color-text-muted);
 }

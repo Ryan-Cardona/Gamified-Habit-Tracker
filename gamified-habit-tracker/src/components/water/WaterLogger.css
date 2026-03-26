@@ -1,0 +1,125 @@
+.water-logger {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.logger-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-2);
+}
+
+/* ── Quick-log grid ── */
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+}
+
+.quick-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: var(--space-3) var(--space-2);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-height: var(--touch-target);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.quick-btn:hover:not(:disabled) {
+  background: var(--color-bg-raised);
+  border-color: var(--color-primary);
+}
+
+.quick-drop {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.quick-ml {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* ── Custom amount form ── */
+.custom-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.custom-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.custom-input {
+  flex: 1;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0 var(--space-3);
+  height: var(--touch-target);
+  min-width: 0;
+  transition: border-color var(--transition-fast);
+}
+
+.custom-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.custom-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Remove browser number arrows */
+.custom-input::-webkit-outer-spin-button,
+.custom-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.custom-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.custom-unit {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.custom-btn {
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0 var(--space-5);
+  height: var(--touch-target);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+
+.custom-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.custom-error {
+  font-size: 0.8rem;
+  color: var(--color-danger);
+  margin: 0;
+}

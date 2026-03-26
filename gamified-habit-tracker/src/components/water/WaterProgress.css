@@ -1,0 +1,59 @@
+.water-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ── Ring ── */
+.ring-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.ring {
+  width: 100%;
+  height: 100%;
+}
+
+.ring-track {
+  stroke: var(--color-bg-raised);
+}
+
+/* stroke, strokeDasharray, strokeDashoffset are set via inline style for reliable CSS transitions */
+
+/* ── Centre text ── */
+.ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.ring-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.ring-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* ── Goal message ── */
+.goal-message {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.goal-message--done {
+  color: var(--color-success);
+  font-weight: 600;
+}

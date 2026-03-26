@@ -1,10 +1,14 @@
 import { useUser } from './hooks/useUser'
+import { useWaterLog } from './hooks/useWaterLog'
+import { WaterProgress } from './components/water/WaterProgress'
+import { WaterLogger } from './components/water/WaterLogger'
 import './App.css'
 
 function App() {
-  const { user, loading, error } = useUser()
+  const { user, loading: userLoading, error: userError } = useUser()
+  const { todayTotal, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
 
-  if (loading) {
+  if (userLoading) {
     return (
       <div className="app-shell">
         <div className="splash">
@@ -15,7 +19,7 @@ function App() {
     )
   }
 
-  if (error) {
+  if (userError) {
     return (
       <div className="app-shell">
         <div className="splash">
@@ -27,17 +31,29 @@ function App() {
 
   return (
     <div className="app-shell">
+      <header className="app-header">
+        <span className="header-title">💧 HydroQuest</span>
+        <span className="header-user">{user.username}</span>
+      </header>
+
       <main className="app-main">
-        <div className="placeholder-screen">
-          <div className="drop-icon">💧</div>
-          <h1>HydroQuest</h1>
-          <div className="user-card card">
-            <p className="user-label">You are playing as</p>
-            <p className="user-name">{user.username}</p>
-            <p className="user-id">ID: {user.id.slice(0, 8)}…</p>
-          </div>
-          <p className="hint">Step 2 complete — anonymous user system working.</p>
-        </div>
+        <section className="home-section">
+          {logsLoading ? (
+            <div className="section-loading">Loading today's logs…</div>
+          ) : (
+            <WaterProgress
+              todayTotal={todayTotal}
+              goalMl={user.daily_goal_ml}
+            />
+          )}
+        </section>
+
+        <section className="home-section">
+          <WaterLogger
+            onLog={logWater}
+            disabled={logging}
+          />
+        </section>
       </main>
     </div>
   )

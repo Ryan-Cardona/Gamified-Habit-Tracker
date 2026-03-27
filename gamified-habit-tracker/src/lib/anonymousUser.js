@@ -44,11 +44,12 @@ export async function initAnonymousUser() {
       .from('users')
       .select('*')
       .eq('id', userId)
-      .single()
+      .maybeSingle()
 
-    if (data && !error) return data
+    if (data) return data
+    if (error) throw new Error(`Failed to fetch user: ${error.message}`)
 
-    // Row missing (e.g. DB was reset) — fall through to create a new one
+    // data is null — row missing (e.g. DB was reset) — fall through to create a new one
   }
 
   // New visitor — create a fresh identity

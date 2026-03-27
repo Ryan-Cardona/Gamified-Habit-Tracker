@@ -1,12 +1,17 @@
+import { useState } from 'react'
 import { useUser } from './hooks/useUser'
 import { useWaterLog } from './hooks/useWaterLog'
 import { WaterProgress } from './components/water/WaterProgress'
 import { WaterLogger } from './components/water/WaterLogger'
+import { WelcomeModal } from './components/ui/WelcomeModal'
 import './App.css'
 
 function App() {
   const { user, loading: userLoading, error: userError } = useUser()
   const { todayTotal, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
+  const [showWelcome, setShowWelcome] = useState(
+    () => !localStorage.getItem('hydroquest_welcomed')
+  )
 
   if (userLoading) {
     return (
@@ -31,6 +36,13 @@ function App() {
 
   return (
     <div className="app-shell">
+      {showWelcome && (
+        <WelcomeModal onAccept={() => {
+          localStorage.setItem('hydroquest_welcomed', 'true')
+          setShowWelcome(false)
+        }} />
+      )}
+
       <header className="app-header">
         <span className="header-title">💧 HydroQuest</span>
         <span className="header-user">{user.username}</span>

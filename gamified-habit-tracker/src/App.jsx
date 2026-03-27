@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUser } from './hooks/useUser'
 import { useWaterLog } from './hooks/useWaterLog'
+import { useChallenges } from './hooks/useChallenges'
 import { WaterProgress } from './components/water/WaterProgress'
 import { WaterLogger } from './components/water/WaterLogger'
 import { XPBar } from './components/ui/XPBar'
@@ -8,6 +9,9 @@ import { LevelUpToast } from './components/ui/LevelUpToast'
 import { StreakToast } from './components/ui/StreakToast'
 import { StreakBadge } from './components/ui/StreakBadge'
 import { WelcomeModal } from './components/ui/WelcomeModal'
+import { ChallengeToast } from './components/ui/ChallengeToast'
+import { BottomNav } from './components/layout/BottomNav'
+import { ChallengesPage } from './pages/ChallengesPage'
 import { xpForLog, levelFromXP } from './utils/xp'
 import { computeStreakUpdate, checkStreakExpiry } from './utils/streaks'
 import './App.css'
@@ -15,18 +19,21 @@ import './App.css'
 function App() {
   const { user, loading: userLoading, error: userError, updateUser } = useUser()
   const { todayTotal, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
-  const [levelUp, setLevelUp]     = useState(null)
-  const [streakHit, setStreakHit] = useState(null)
-  const [showWelcome, setShowWelcome] = useState(
+  const { challenges, loading: challengesLoading, updateProgress } = useChallenges(user?.id)
+
+  const [activeTab, setActiveTab]           = useState('home')
+  const [levelUp, setLevelUp]               = useState(null)
+  const [streakHit, setStreakHit]           = useState(null)
+  const [challengeDone, setChallengeDone]   = useState(null)
+  const [showWelcome, setShowWelcome]       = useState(
     () => !localStorage.getItem('hydroquest_welcomed')
   )
 
-  // On load: reset streak if the user missed yesterday
   useEffect(() => {
     if (!user) return
     const expiry = checkStreakExpiry(user.streak_current, user.streak_last_date)
     if (expiry) updateUser(expiry)
-  }, [user?.id]) // run once when user first loads
+  }, [user?.id])
 
   if (userLoading) {
     return (
@@ -57,15 +64,13 @@ function App() {
 
     // XP & level
     const earned   = xpForLog(amount_ml)
-    const newXP    = user.xp + earned
-    const newLevel = levelFromXP(newXP)
-    updates.xp    = newXP
-    updates.level = newLevel
-
+    let   newXP    = user.xp + earned
+    let   newLevel = levelFromXP(newXP)
     if (newLevel > user.level) setLevelUp(newLevel)
 
-    // Streak — check if this log pushed today's total to the daily goal
+    // Streak
     const newTotal = todayTotal + amount_ml
+    let newStreak = user.streak_current
     if (newTotal >= user.daily_goal_ml) {
       const streakUpdate = computeStreakUpdate(
         user.streak_current,
@@ -75,9 +80,22 @@ function App() {
       if (streakUpdate) {
         Object.assign(updates, streakUpdate)
         setStreakHit(streakUpdate.streak_current)
+        newStreak = streakUpdate.streak_current
       }
     }
 
+    // Challenges
+    const completed = await updateProgress({ amount_ml, newStreak })
+    if (completed.length > 0) {
+      const bonusXP = completed.reduce((sum, uc) => sum + uc.challenge.xp_reward, 0)
+      newXP   += bonusXP
+      newLevel = levelFromXP(newXP)
+      if (newLevel > user.level) setLevelUp(newLevel)
+      setChallengeDone(completed[0].challenge)
+    }
+
+    updates.xp    = newXP
+    updates.level = newLevel
     await updateUser(updates)
   }
 
@@ -90,16 +108,13 @@ function App() {
         }} />
       )}
       {levelUp && (
-        <LevelUpToast
-          level={levelUp}
-          onDone={() => setLevelUp(null)}
-        />
+        <LevelUpToast level={levelUp} onDone={() => setLevelUp(null)} />
       )}
       {streakHit && (
-        <StreakToast
-          streak={streakHit}
-          onDone={() => setStreakHit(null)}
-        />
+        <StreakToast streak={streakHit} onDone={() => setStreakHit(null)} />
+      )}
+      {challengeDone && (
+        <ChallengeToast challenge={challengeDone} onDone={() => setChallengeDone(null)} />
       )}
 
       <header className="app-header">
@@ -115,24 +130,30 @@ function App() {
       </div>
 
       <main className="app-main">
-        <section className="home-section">
-          {logsLoading ? (
-            <div className="section-loading">Loading today's logs…</div>
-          ) : (
-            <WaterProgress
-              todayTotal={todayTotal}
-              goalMl={user.daily_goal_ml}
-            />
-          )}
-        </section>
+        {activeTab === 'home' && (
+          <>
+            <section className="home-section">
+              {logsLoading ? (
+                <div className="section-loading">Loading today's logs…</div>
+              ) : (
+                <WaterProgress todayTotal={todayTotal} goalMl={user.daily_goal_ml} />
+              )}
+            </section>
+            <section className="home-section">
+              <WaterLogger onLog={handleLogWater} disabled={logging} />
+            </section>
+          </>
+        )}
 
-        <section className="home-section">
-          <WaterLogger
-            onLog={handleLogWater}
-            disabled={logging}
+        {activeTab === 'challenges' && (
+          <ChallengesPage
+            challenges={challenges}
+            loading={challengesLoading}
           />
-        </section>
+        )}
       </main>
+
+      <BottomNav active={activeTab} onChange={setActiveTab} />
     </div>
   )
 }

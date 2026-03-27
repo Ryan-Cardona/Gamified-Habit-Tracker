@@ -7,6 +7,7 @@ import { XPBar } from './components/ui/XPBar'
 import { LevelUpToast } from './components/ui/LevelUpToast'
 import { StreakToast } from './components/ui/StreakToast'
 import { StreakBadge } from './components/ui/StreakBadge'
+import { WelcomeModal } from './components/ui/WelcomeModal'
 import { xpForLog, levelFromXP } from './utils/xp'
 import { computeStreakUpdate, checkStreakExpiry } from './utils/streaks'
 import './App.css'
@@ -16,6 +17,9 @@ function App() {
   const { todayTotal, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
   const [levelUp, setLevelUp]     = useState(null)
   const [streakHit, setStreakHit] = useState(null)
+  const [showWelcome, setShowWelcome] = useState(
+    () => !localStorage.getItem('hydroquest_welcomed')
+  )
 
   // On load: reset streak if the user missed yesterday
   useEffect(() => {
@@ -79,6 +83,12 @@ function App() {
 
   return (
     <div className="app-shell">
+      {showWelcome && (
+        <WelcomeModal onAccept={() => {
+          localStorage.setItem('hydroquest_welcomed', 'true')
+          setShowWelcome(false)
+        }} />
+      )}
       {levelUp && (
         <LevelUpToast
           level={levelUp}

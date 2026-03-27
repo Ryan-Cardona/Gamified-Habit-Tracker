@@ -1,0 +1,102 @@
+.virtual-pet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ── Pet asset ── */
+.pet-asset {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  transition: border-color var(--transition-base);
+}
+
+.virtual-pet--happy   .pet-asset { border-color: var(--color-primary); }
+.virtual-pet--thriving .pet-asset { border-color: var(--color-success); }
+.virtual-pet--thirsty  .pet-asset { border-color: var(--color-danger);  }
+.virtual-pet--neutral  .pet-asset { border-color: var(--color-warning); }
+
+.pet-emoji {
+  font-size: 3.5rem;
+  line-height: 1;
+  animation: petBob 2.5s ease-in-out infinite;
+}
+
+/* Slot for real image asset — uncomment when ready */
+.pet-image {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  animation: petBob 2.5s ease-in-out infinite;
+}
+
+/* ── Speech bubble ── */
+.pet-bubble {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-4);
+  position: relative;
+  max-width: 220px;
+  text-align: center;
+}
+
+.pet-bubble::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid var(--color-border);
+}
+
+.pet-bubble::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid var(--color-bg-card);
+}
+
+.pet-message {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* ── Animations ── */
+@keyframes petBob {
+  0%, 100% { transform: translateY(0);   }
+  50%       { transform: translateY(-6px); }
+}
+
+.virtual-pet--thriving .pet-emoji {
+  animation: petBounce 1.2s ease-in-out infinite;
+}
+
+.virtual-pet--thirsty .pet-emoji {
+  animation: petDroop 3s ease-in-out infinite;
+}
+
+@keyframes petBounce {
+  0%, 100% { transform: translateY(0)   scale(1);    }
+  40%       { transform: translateY(-10px) scale(1.05); }
+}
+
+@keyframes petDroop {
+  0%, 100% { transform: translateY(0) rotate(0deg);   }
+  50%       { transform: translateY(3px) rotate(-5deg); }
+}

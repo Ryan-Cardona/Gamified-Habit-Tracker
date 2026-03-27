@@ -10,6 +10,7 @@ import { StreakToast } from './components/ui/StreakToast'
 import { StreakBadge } from './components/ui/StreakBadge'
 import { WelcomeModal } from './components/ui/WelcomeModal'
 import { ChallengeToast } from './components/ui/ChallengeToast'
+import { VirtualPet, getMoodFromProgress } from './components/pet/VirtualPet'
 import { BottomNav } from './components/layout/BottomNav'
 import { ChallengesPage } from './pages/ChallengesPage'
 import { xpForLog, levelFromXP } from './utils/xp'
@@ -96,6 +97,11 @@ function App() {
 
     updates.xp    = newXP
     updates.level = newLevel
+
+    // Update pet mood
+    const newMood = getMoodFromProgress(todayTotal + amount_ml, user.daily_goal_ml)
+    updates.pet_state = { mood: newMood, last_fed: new Date().toISOString() }
+
     await updateUser(updates)
   }
 
@@ -132,6 +138,10 @@ function App() {
       <main className="app-main">
         {activeTab === 'home' && (
           <>
+            <section className="home-section">
+              <VirtualPet todayTotal={todayTotal} goalMl={user.daily_goal_ml} />
+            </section>
+
             <section className="home-section">
               {logsLoading ? (
                 <div className="section-loading">Loading today's logs…</div>

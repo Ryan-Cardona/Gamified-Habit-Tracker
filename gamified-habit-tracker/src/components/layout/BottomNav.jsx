@@ -1,8 +1,9 @@
 import './BottomNav.css'
 
 const TABS = [
-  { id: 'home',       label: 'Home',       icon: '💧' },
-  { id: 'challenges', label: 'Challenges', icon: '🏆' },
+  { id: 'home',        label: 'Home',        icon: '💧' },
+  { id: 'challenges',  label: 'Challenges',  icon: '🎖️' },
+  { id: 'leaderboard', label: 'Leaderboard', icon: '🏆' },
 ]
 
 /**

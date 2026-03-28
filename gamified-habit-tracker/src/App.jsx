@@ -13,6 +13,7 @@ import { ChallengeToast } from './components/ui/ChallengeToast'
 import { VirtualPet, PetBubble, getMoodFromProgress } from './components/pet/VirtualPet'
 import { BottomNav } from './components/layout/BottomNav'
 import { ChallengesPage } from './pages/ChallengesPage'
+import { LeaderboardPage } from './pages/LeaderboardPage'
 import { xpForLog, levelFromXP } from './utils/xp'
 import { computeStreakUpdate, checkStreakExpiry } from './utils/streaks'
 import './App.css'
@@ -171,6 +172,10 @@ function App() {
             challenges={challenges}
             loading={challengesLoading}
           />
+        )}
+
+        {activeTab === 'leaderboard' && (
+          <LeaderboardPage userId={user.id} />
         )}
       </main>
 

@@ -24,23 +24,14 @@
 .virtual-pet--thirsty  .pet-asset { border-color: var(--color-danger);  }
 .virtual-pet--neutral  .pet-asset { border-color: var(--color-warning); }
 
-.pet-emoji {
-  font-size: 3.5rem;
-  line-height: 1;
+.pet-sprite {
   animation: petBob 2.5s ease-in-out infinite;
+  /* width/height set via inline style from getSpriteStyle() */
 }
 
-.pet-emoji--compact {
-  font-size: 5rem;
-  display: block;
-}
-
-/* Slot for real image asset — uncomment when ready */
-.pet-image {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  animation: petBob 2.5s ease-in-out infinite;
+.pet-sprite--compact {
+  /* margin-top is set per-mood via inline style in VirtualPet.jsx
+     using the base offset + moodFrames[mood].yOffset from pets.js */
 }
 
 /* ── Speech bubble ── */
@@ -88,11 +79,13 @@
   50%       { transform: translateY(-3px); }
 }
 
-.virtual-pet--thriving .pet-emoji {
+.virtual-pet--thriving .pet-sprite,
+.pet-sprite--compact.virtual-pet--thriving {
   animation: petBounce 1.2s ease-in-out infinite;
 }
 
-.virtual-pet--thirsty .pet-emoji {
+.virtual-pet--thirsty .pet-sprite,
+.pet-sprite--compact.virtual-pet--thirsty {
   animation: petDroop 3s ease-in-out infinite;
 }
 

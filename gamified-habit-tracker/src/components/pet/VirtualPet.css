@@ -30,6 +30,11 @@
   animation: petBob 2.5s ease-in-out infinite;
 }
 
+.pet-emoji--compact {
+  font-size: 5rem;
+  display: block;
+}
+
 /* Slot for real image asset — uncomment when ready */
 .pet-image {
   width: 90px;
@@ -80,7 +85,7 @@
 /* ── Animations ── */
 @keyframes petBob {
   0%, 100% { transform: translateY(0);   }
-  50%       { transform: translateY(-6px); }
+  50%       { transform: translateY(-3px); }
 }
 
 .virtual-pet--thriving .pet-emoji {
@@ -93,10 +98,10 @@
 
 @keyframes petBounce {
   0%, 100% { transform: translateY(0)   scale(1);    }
-  40%       { transform: translateY(-10px) scale(1.05); }
+  40%       { transform: translateY(-4px) scale(1.05); }
 }
 
 @keyframes petDroop {
-  0%, 100% { transform: translateY(0) rotate(0deg);   }
-  50%       { transform: translateY(3px) rotate(-5deg); }
+  0%, 100% { transform: translateY(0) rotate(0deg);      }
+  50%       { transform: translateY(2px) rotate(-3deg); }
 }

@@ -26,14 +26,25 @@ export function getMoodFromProgress(todayTotal, goalMl) {
 /**
  * Virtual pet display. Reacts to the user's hydration progress.
  *
+ * compact={true} renders just the emoji (for inside the progress ring).
+ * Default renders the full pet with circle wrapper + speech bubble.
+ *
  * To plug in your real pet asset later:
  * 1. Drop your image into /public/pet/ (e.g. pet.png)
  * 2. Replace the <span className="pet-emoji"> block with:
  *    <img src="/pet/pet.png" className="pet-image" alt="your pet" />
  */
-export function VirtualPet({ todayTotal, goalMl }) {
+export function VirtualPet({ todayTotal, goalMl, compact = false }) {
   const moodKey = getMoodFromProgress(todayTotal, goalMl)
   const mood    = MOODS[moodKey]
+
+  if (compact) {
+    return (
+      <span className={`pet-emoji pet-emoji--compact virtual-pet--${moodKey}`}>
+        {mood.emoji}
+      </span>
+    )
+  }
 
   return (
     <div className={`virtual-pet virtual-pet--${moodKey}`}>
@@ -46,6 +57,19 @@ export function VirtualPet({ todayTotal, goalMl }) {
       <div className="pet-bubble">
         <span className="pet-message">{mood.message}</span>
       </div>
+    </div>
+  )
+}
+
+/**
+ * Just the speech bubble — render this below the ring when using compact mode.
+ */
+export function PetBubble({ todayTotal, goalMl }) {
+  const moodKey = getMoodFromProgress(todayTotal, goalMl)
+  const mood    = MOODS[moodKey]
+  return (
+    <div className="pet-bubble">
+      <span className="pet-message">{mood.message}</span>
     </div>
   )
 }

@@ -10,7 +10,7 @@ import { StreakToast } from './components/ui/StreakToast'
 import { StreakBadge } from './components/ui/StreakBadge'
 import { WelcomeModal } from './components/ui/WelcomeModal'
 import { ChallengeToast } from './components/ui/ChallengeToast'
-import { VirtualPet, getMoodFromProgress } from './components/pet/VirtualPet'
+import { VirtualPet, PetBubble, getMoodFromProgress } from './components/pet/VirtualPet'
 import { BottomNav } from './components/layout/BottomNav'
 import { ChallengesPage } from './pages/ChallengesPage'
 import { xpForLog, levelFromXP } from './utils/xp'
@@ -139,16 +139,27 @@ function App() {
         {activeTab === 'home' && (
           <>
             <section className="home-section">
-              <VirtualPet todayTotal={todayTotal} goalMl={user.daily_goal_ml} />
-            </section>
-
-            <section className="home-section">
               {logsLoading ? (
                 <div className="section-loading">Loading today's logs…</div>
               ) : (
-                <WaterProgress todayTotal={todayTotal} goalMl={user.daily_goal_ml} />
+                <WaterProgress
+                  todayTotal={todayTotal}
+                  goalMl={user.daily_goal_ml}
+                  centerContent={
+                    <VirtualPet
+                      todayTotal={todayTotal}
+                      goalMl={user.daily_goal_ml}
+                      compact
+                    />
+                  }
+                />
               )}
             </section>
+
+            <section className="home-section">
+              <PetBubble todayTotal={todayTotal} goalMl={user.daily_goal_ml} />
+            </section>
+
             <section className="home-section">
               <WaterLogger onLog={handleLogWater} disabled={logging} />
             </section>

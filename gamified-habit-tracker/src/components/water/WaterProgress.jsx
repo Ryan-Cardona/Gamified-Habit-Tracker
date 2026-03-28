@@ -4,13 +4,14 @@ const RADIUS = 80
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 
 /**
- * Circular progress ring showing today's water intake vs. the daily goal.
+ * Circular progress ring. Accepts optional centerContent to render
+ * inside the ring (e.g. the virtual pet). Water amount is shown below.
  */
-export function WaterProgress({ todayTotal, goalMl }) {
-  const pct        = Math.min(todayTotal / goalMl, 1)
-  const offset     = CIRCUMFERENCE * (1 - pct)
-  const goalMet    = todayTotal >= goalMl
-  const remaining  = Math.max(goalMl - todayTotal, 0)
+export function WaterProgress({ todayTotal, goalMl, centerContent }) {
+  const pct       = Math.min(todayTotal / goalMl, 1)
+  const offset    = CIRCUMFERENCE * (1 - pct)
+  const goalMet   = todayTotal >= goalMl
+  const remaining = Math.max(goalMl - todayTotal, 0)
 
   return (
     <div className="water-progress">
@@ -46,10 +47,22 @@ export function WaterProgress({ todayTotal, goalMl }) {
         </svg>
 
         <div className="ring-center">
-          <span className="ring-value">{(todayTotal / 1000).toFixed(2)}L</span>
-          <span className="ring-label">of {goalMl / 1000}L goal</span>
+          {centerContent || (
+            <>
+              <span className="ring-value">{(todayTotal / 1000).toFixed(2)}L</span>
+              <span className="ring-label">of {goalMl / 1000}L goal</span>
+            </>
+          )}
         </div>
       </div>
+
+      {/* Water amount shown below when pet occupies the centre */}
+      {centerContent && (
+        <div className="ring-stats">
+          <span className="ring-stats-value">{(todayTotal / 1000).toFixed(2)}L</span>
+          <span className="ring-stats-label">of {goalMl / 1000}L goal</span>
+        </div>
+      )}
 
       {goalMet ? (
         <p className="goal-message goal-message--done">Goal reached! 🎉</p>

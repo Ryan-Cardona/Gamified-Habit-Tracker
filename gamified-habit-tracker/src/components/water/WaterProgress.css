@@ -8,8 +8,8 @@
 /* ── Ring ── */
 .ring-wrapper {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 280px;
+  height: 280px;
 }
 
 .ring {
@@ -35,14 +35,32 @@
 }
 
 .ring-value {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-text);
   line-height: 1;
 }
 
 .ring-label {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* Stats row shown below ring when pet is in the centre */
+.ring-stats {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+.ring-stats-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.ring-stats-label {
+  font-size: 0.8rem;
   color: var(--color-text-muted);
 }
 

@@ -4,6 +4,7 @@ const TABS = [
   { id: 'home',        label: 'Home',        icon: '💧' },
   { id: 'challenges',  label: 'Challenges',  icon: '🎖️' },
   { id: 'leaderboard', label: 'Leaderboard', icon: '🏆' },
+  { id: 'help',        label: 'Help',        icon: '❓' },
 ]
 
 /**

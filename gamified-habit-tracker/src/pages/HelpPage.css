@@ -1,0 +1,98 @@
+.help-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+}
+
+.help-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+  margin: 0;
+}
+
+/* ── FAQ list ── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.faq-item {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-base);
+}
+
+.faq-item--open {
+  border-color: var(--color-primary);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  gap: var(--space-3);
+}
+
+.faq-chevron {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  padding: 0 var(--space-4) var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.faq-answer p {
+  margin: 0 0 var(--space-2);
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── iOS steps ── */
+.faq-steps {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ── Install button ── */
+.install-btn {
+  margin-top: var(--space-3);
+  width: 100%;
+  padding: var(--space-3);
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.faq-installed {
+  color: var(--color-success);
+  font-weight: 600;
+}

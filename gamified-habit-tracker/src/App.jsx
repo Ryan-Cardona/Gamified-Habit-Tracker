@@ -14,6 +14,8 @@ import { VirtualPet, PetBubble, getMoodFromProgress } from './components/pet/Vir
 import { BottomNav } from './components/layout/BottomNav'
 import { ChallengesPage } from './pages/ChallengesPage'
 import { LeaderboardPage } from './pages/LeaderboardPage'
+import { HelpPage } from './pages/HelpPage'
+import { supabase } from './lib/supabase'
 import { xpForLog, levelFromXP } from './utils/xp'
 import { computeStreakUpdate, checkStreakExpiry } from './utils/streaks'
 import './App.css'
@@ -36,6 +38,12 @@ function App() {
     const expiry = checkStreakExpiry(user.streak_current, user.streak_last_date)
     if (expiry) updateUser(expiry)
   }, [user?.id])
+
+  // Keep-alive ping — prevents Supabase free tier from pausing the project.
+  // Runs once on mount; a lightweight query is enough to count as activity.
+  useEffect(() => {
+    supabase.from('users').select('id').limit(1).then(() => {})
+  }, [])
 
   if (userLoading) {
     return (
@@ -176,6 +184,10 @@ function App() {
 
         {activeTab === 'leaderboard' && (
           <LeaderboardPage userId={user.id} />
+        )}
+
+        {activeTab === 'help' && (
+          <HelpPage />
         )}
       </main>
 

@@ -67,15 +67,11 @@ export function VirtualPet({ todayTotal, goalMl, petId = DEFAULT_PET, compact = 
   const spriteStyle = getSpriteStyle(petConfig, moodKey, compact ? 175 : 130)
 
   if (compact) {
-    const frame      = petConfig.moodFrames[moodKey]
-    // Bottom-row frames (happy/thriving) tend to have less top whitespace
-    // so we push them down to match the top-row frames visually.
-    const rowOffset  = frame.row === 1 ? 130 : 0
-    const marginTop  = -70 + rowOffset
     return (
       <div
         className={`pet-sprite pet-sprite--compact virtual-pet--${moodKey}`}
-        style={{ ...spriteStyle, marginTop: `${marginTop}px` }}
+        style={{ ...spriteStyle, marginTop: '-10px',
+                                  marginLeft: '-20px',}}
         role="img"
         aria-label={`${petConfig.name} is ${MOODS[moodKey].label}`}
       />

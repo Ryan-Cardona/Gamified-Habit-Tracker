@@ -11,6 +11,8 @@ import { StreakBadge } from './components/ui/StreakBadge'
 import { WelcomeModal } from './components/ui/WelcomeModal'
 import { ChallengeToast } from './components/ui/ChallengeToast'
 import { VirtualPet, PetBubble, getMoodFromProgress } from './components/pet/VirtualPet'
+import { PetSelector } from './components/pet/PetSelector'
+import { usePetSelection } from './hooks/usePetSelection'
 import { BottomNav } from './components/layout/BottomNav'
 import { ChallengesPage } from './pages/ChallengesPage'
 import { LeaderboardPage } from './pages/LeaderboardPage'
@@ -24,6 +26,8 @@ function App() {
   const { user, loading: userLoading, error: userError, updateUser } = useUser()
   const { todayTotal, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
   const { challenges, loading: challengesLoading, updateProgress } = useChallenges(user?.id)
+
+  const { petId, selectPet } = usePetSelection()
 
   const [activeTab, setActiveTab]           = useState('home')
   const [levelUp, setLevelUp]               = useState(null)
@@ -158,6 +162,7 @@ function App() {
                     <VirtualPet
                       todayTotal={todayTotal}
                       goalMl={user.daily_goal_ml}
+                      petId={petId}
                       compact
                     />
                   }
@@ -167,6 +172,10 @@ function App() {
 
             <section className="home-section">
               <PetBubble todayTotal={todayTotal} goalMl={user.daily_goal_ml} />
+            </section>
+
+            <section className="home-section">
+              <PetSelector activePetId={petId} onSelect={selectPet} />
             </section>
 
             <section className="home-section">

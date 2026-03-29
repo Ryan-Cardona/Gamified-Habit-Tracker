@@ -5,12 +5,15 @@ import { useTheme } from './hooks/useTheme'
 import { WaterProgress } from './components/water/WaterProgress'
 import { WaterLogger } from './components/water/WaterLogger'
 import { WelcomeModal } from './components/ui/WelcomeModal'
+import { BottomNav } from './components/layout/BottomNav'
+import { HelpPage } from './pages/HelpPage'
 import './App.css'
 
 function App() {
   const { user, loading: userLoading, error: userError } = useUser()
   const { todayTotal, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
   const { theme, toggleTheme } = useTheme()
+  const [activeTab, setActiveTab] = useState('home')
   const [showWelcome, setShowWelcome] = useState(
     () => !localStorage.getItem('hydroquest_welcomed')
   )
@@ -52,34 +55,44 @@ function App() {
       </div>
 
       <main className="app-main">
-        <div className="home-top-row">
-          <button
-            className={`theme-toggle theme-toggle--${theme}`}
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
-        </div>
+        {activeTab === 'home' && (
+          <>
+            <div className="home-top-row">
+              <button
+                className={`theme-toggle theme-toggle--${theme}`}
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? '🌙' : '☀️'}
+              </button>
+            </div>
 
-        <section className="home-section">
-          {logsLoading ? (
-            <div className="section-loading">Loading today's logs…</div>
-          ) : (
-            <WaterProgress
-              todayTotal={todayTotal}
-              goalMl={user.daily_goal_ml}
-            />
-          )}
-        </section>
+            <section className="home-section">
+              {logsLoading ? (
+                <div className="section-loading">Loading today's logs…</div>
+              ) : (
+                <WaterProgress
+                  todayTotal={todayTotal}
+                  goalMl={user.daily_goal_ml}
+                />
+              )}
+            </section>
 
-        <section className="home-section">
-          <WaterLogger
-            onLog={logWater}
-            disabled={logging}
-          />
-        </section>
+            <section className="home-section">
+              <WaterLogger
+                onLog={logWater}
+                disabled={logging}
+              />
+            </section>
+          </>
+        )}
+
+        {activeTab === 'help' && (
+          <HelpPage />
+        )}
       </main>
+
+      <BottomNav active={activeTab} onChange={setActiveTab} />
     </div>
   )
 }

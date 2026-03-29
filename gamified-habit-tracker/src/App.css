@@ -7,14 +7,21 @@
 }
 
 /* ── Header ── */
+/* ── Sticky top bar (header + XP bar) ── */
+.app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg-card);
+  border-bottom: 1px solid var(--color-border);
+}
+
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: var(--space-4) var(--space-5);
   padding-top: calc(var(--space-4) + env(safe-area-inset-top));
-  border-bottom: 1px solid var(--color-border);
-  background: var(--color-bg-card);
 }
 
 .header-title {
@@ -38,8 +45,7 @@
 /* ── XP bar row (below header) ── */
 .xp-bar-row {
   padding: var(--space-2) var(--space-5);
-  background: var(--color-bg-card);
-  border-bottom: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
 }
 
 /* ── Main content ── */

@@ -136,16 +136,17 @@ function App() {
         <ChallengeToast challenge={challengeDone} onDone={() => setChallengeDone(null)} />
       )}
 
-      <header className="app-header">
-        <span className="header-title">💧 HydroQuest</span>
-        <div className="header-right">
-          <StreakBadge streak={user.streak_current} />
-          <span className="header-user">{user.username}</span>
+      <div className="app-topbar">
+        <header className="app-header">
+          <span className="header-title">💧 HydroQuest</span>
+          <div className="header-right">
+            <StreakBadge streak={user.streak_current} />
+            <span className="header-user">{user.username}</span>
+          </div>
+        </header>
+        <div className="xp-bar-row">
+          <XPBar xp={user.xp} level={user.level} />
         </div>
-      </header>
-
-      <div className="xp-bar-row">
-        <XPBar xp={user.xp} level={user.level} />
       </div>
 
       <main className="app-main">

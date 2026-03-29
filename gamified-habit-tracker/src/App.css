@@ -42,6 +42,30 @@
   color: var(--color-text);
 }
 
+.home-top-row {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.theme-toggle {
+  font-size: 1.2rem;
+  min-height: unset;
+  padding: 8px 12px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  line-height: 1;
+  transition: border-color var(--transition-base), background var(--transition-base);
+}
+
+.theme-toggle--light {
+  border: 2px solid #7eb8f7;  /* pastel blue — light mode */
+}
+
+.theme-toggle--dark {
+  border: 2px solid #f59e0b;  /* warm amber — dark mode */
+}
+
 /* ── XP bar row (below header) ── */
 .xp-bar-row {
   padding: var(--space-2) var(--space-5);

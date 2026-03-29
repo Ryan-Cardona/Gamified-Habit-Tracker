@@ -4,27 +4,27 @@
    ───────────────────────────────────────── */
 
 :root {
-  /* Brand colours */
-  --color-primary:       #3b82f6;   /* blue-500  */
-  --color-primary-light: #93c5fd;   /* blue-300  */
-  --color-primary-dark:  #1d4ed8;   /* blue-700  */
-  --color-accent:        #06b6d4;   /* cyan-500  */
-  --color-success:       #22c55e;   /* green-500 */
-  --color-warning:       #f59e0b;   /* amber-500 */
-  --color-danger:        #ef4444;   /* red-500   */
+  /* Brand colours — pastel palette */
+  --color-primary:       #7eb8f7;   /* pastel blue       */
+  --color-primary-light: #3a78c9;   /* darker blue for title */
+  --color-primary-dark:  #4a90d9;   /* slightly deeper blue */
+  --color-accent:        #80dff0;   /* pastel cyan        */
+  --color-success:       #86e0a0;   /* pastel green (light mode) */
+  --color-warning:       #fcd89a;   /* pastel amber       */
+  --color-danger:        #e05555;   /* deeper red         */
 
   /* Backgrounds */
-  --color-bg:            #0f172a;   /* slate-900 */
-  --color-bg-card:       #1e293b;   /* slate-800 */
-  --color-bg-raised:     #334155;   /* slate-700 */
+  --color-bg:            #f0f4ff;   /* soft lavender-white */
+  --color-bg-card:       #ffffff;   /* pure white cards    */
+  --color-bg-raised:     #dde8ff;   /* light periwinkle    */
 
   /* Text */
-  --color-text:          #f1f5f9;   /* slate-100 */
-  --color-text-secondary:#94a3b8;   /* slate-400 */
-  --color-text-muted:    #475569;   /* slate-600 */
+  --color-text:          #2d3a55;   /* dark navy           */
+  --color-text-secondary:#6b7a99;   /* muted blue-grey     */
+  --color-text-muted:    #a0adc4;   /* light blue-grey     */
 
   /* Borders */
-  --color-border:        #334155;   /* slate-700 */
+  --color-border:        #d0dcf5;   /* soft periwinkle     */
 
   /* Spacing scale */
   --space-1:  4px;
@@ -44,8 +44,8 @@
   --radius-full: 9999px;
 
   /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-sm: 0 1px 3px rgba(100,120,180,0.12);
+  --shadow-md: 0 4px 12px rgba(100,120,180,0.18);
 
   /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -56,6 +56,30 @@
 
   /* Touch target minimum */
   --touch-target: 44px;
+}
+
+/* ── Dark mode overrides ── */
+[data-theme="dark"] {
+  --color-primary:       #7eb8f7;
+  --color-primary-light: #93c5fd;
+  --color-primary-dark:  #4a90d9;
+  --color-accent:        #80dff0;
+  --color-success:       #22c55e;
+  --color-warning:       #fcd89a;
+  --color-danger:        #f08080;
+
+  --color-bg:            #0f172a;
+  --color-bg-card:       #1e293b;
+  --color-bg-raised:     #334155;
+
+  --color-text:          #f1f5f9;
+  --color-text-secondary:#94a3b8;
+  --color-text-muted:    #475569;
+
+  --color-border:        #334155;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 /* ── Reset ── */

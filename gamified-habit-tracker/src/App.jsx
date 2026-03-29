@@ -18,6 +18,7 @@ import { ChallengesPage } from './pages/ChallengesPage'
 import { LeaderboardPage } from './pages/LeaderboardPage'
 import { HelpPage } from './pages/HelpPage'
 import { supabase } from './lib/supabase'
+import { useTheme } from './hooks/useTheme'
 import { xpForLog, levelFromXP } from './utils/xp'
 import { computeStreakUpdate, checkStreakExpiry } from './utils/streaks'
 import './App.css'
@@ -28,6 +29,7 @@ function App() {
   const { challenges, loading: challengesLoading, updateProgress } = useChallenges(user?.id)
 
   const { petId, selectPet } = usePetSelection()
+  const { theme, toggleTheme } = useTheme()
 
   const [activeTab, setActiveTab]           = useState('home')
   const [levelUp, setLevelUp]               = useState(null)
@@ -152,6 +154,16 @@ function App() {
       <main className="app-main">
         {activeTab === 'home' && (
           <>
+            <div className="home-top-row">
+              <button
+                className={`theme-toggle theme-toggle--${theme}`}
+                onClick={toggleTheme}
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? '🌙' : '☀️'}
+              </button>
+            </div>
+
             <section className="home-section">
               {logsLoading ? (
                 <div className="section-loading">Loading today's logs…</div>

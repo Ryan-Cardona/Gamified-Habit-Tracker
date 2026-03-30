@@ -35,7 +35,7 @@ export function HelpPage() {
         <FaqItem question="How do I add this app to my home screen?">
           {isInstalled ? (
             <p className="faq-installed">
-              ✅ HydroQuest is already installed on your device!
+              ✅ Slurp is already installed on your device!
             </p>
           ) : isIOS ? (
             <div className="faq-ios">
@@ -48,7 +48,7 @@ export function HelpPage() {
             </div>
           ) : canInstall ? (
             <div className="faq-android">
-              <p>Tap the button below to install HydroQuest on your home screen:</p>
+              <p>Tap the button below to install Slurp on your home screen:</p>
               <button className="install-btn" onClick={triggerInstall}>
                 📲 Install App
               </button>

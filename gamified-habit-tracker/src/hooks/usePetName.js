@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const STORAGE_KEY = 'hydroquest_pet_name'
+const STORAGE_KEY = 'slurp_pet_name'
 
 export function usePetName() {
   const [petName, setPetName] = useState(

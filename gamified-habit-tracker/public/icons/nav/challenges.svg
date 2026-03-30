@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 96 96" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <rect id="Artboard1" x="0" y="0" width="96" height="96" style="fill:none;"/>
+    <g id="Artboard11" serif:id="Artboard1">
+        <g id="medal" transform="matrix(2.74721,0,0,2.74721,2.67102,4.04463)">
+            <path d="M19,1L14,1L14,15.374C14.79,15.131 15.63,15 16.5,15C17.37,15 18.21,15.131 19,15.374L19,1ZM20,1L24,1L24,14L22.753,17.742C21.983,16.907 21.048,16.226 20,15.752L20,1ZM13,1L9,1L9,14L10.247,17.742C11.017,16.907 11.952,16.226 13,15.752L13,1ZM16.5,31C20.642,31 24,27.642 24,23.5C24,19.358 20.642,16 16.5,16C12.358,16 9,19.358 9,23.5C9,27.642 12.358,31 16.5,31ZM16.5,25.923L13.731,28L14.5,24.538L12,22L15.5,22L16.5,19L17.5,22L21,22L18.5,24.538L19.5,28L16.5,25.923Z" style="fill:rgb(190,190,190);"/>
+        </g>
+    </g>
+</svg>

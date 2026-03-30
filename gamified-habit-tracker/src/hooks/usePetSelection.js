@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { DEFAULT_PET } from '../config/pets'
 
-const STORAGE_KEY = 'hydroquest_pet'
+const STORAGE_KEY = 'slurp_pet'
 
 /**
  * Persists the user's chosen pet in localStorage.

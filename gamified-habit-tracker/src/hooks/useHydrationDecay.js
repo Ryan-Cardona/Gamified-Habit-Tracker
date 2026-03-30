@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 const GRACE_MINUTES = 0.1  // DEBUG: ~6 seconds grace
 const DECAY_MINUTES = 1    // DEBUG: full decay over ~1 minute
 const HYDRATION_MAX = 1000 // 1 L = 100%
-const STORAGE_KEY   = 'hydroquest_hydration'
+const STORAGE_KEY   = 'slurp_hydration'
 
 // ── Restore / persist hydration state across page reloads ──────────────────
 function loadState() {

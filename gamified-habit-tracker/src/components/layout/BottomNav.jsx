@@ -1,15 +1,12 @@
 import './BottomNav.css'
 
 const TABS = [
-  { id: 'home',        label: 'Home',        icon: '🏠' },
-  { id: 'challenges',  label: 'Challenges',  icon: '🎖️' },
-  { id: 'leaderboard', label: 'Leaderboard', icon: '🏆' },
-  { id: 'help',        label: 'Help',        icon: '❓' },
+  { id: 'home',        label: 'Home',        iconSrc: '/icons/nav/home.svg' },
+  { id: 'challenges',  label: 'Challenges',  iconSrc: '/icons/nav/challenges.svg' },
+  { id: 'leaderboard', label: 'Leaderboard', iconSrc: '/icons/nav/leaderboard.svg' },
+  { id: 'help',        label: 'Help',        iconSrc: '/icons/nav/help.svg' },
 ]
 
-/**
- * Fixed bottom navigation bar for switching between app sections.
- */
 export function BottomNav({ active, onChange }) {
   return (
     <nav className="bottom-nav">
@@ -20,7 +17,14 @@ export function BottomNav({ active, onChange }) {
           onClick={() => onChange(tab.id)}
           aria-label={tab.label}
         >
-          <span className="tab-icon">{tab.icon}</span>
+          {tab.iconSrc ? (
+            <span
+              className="tab-icon tab-icon--img"
+              style={{ WebkitMaskImage: `url(${tab.iconSrc})`, maskImage: `url(${tab.iconSrc})` }}
+            />
+          ) : (
+            <span className="tab-icon">{tab.icon}</span>
+          )}
           <span className="tab-label">{tab.label}</span>
         </button>
       ))}

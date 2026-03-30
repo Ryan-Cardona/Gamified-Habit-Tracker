@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 
-const STORAGE_KEY = 'hydroquest_user_id'
+const STORAGE_KEY = 'slurp_user_id'
 
 const ADJECTIVES = [
   'Swift', 'Calm', 'Bold', 'Bright', 'Cool', 'Crisp', 'Deep', 'Epic',

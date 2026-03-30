@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const STORAGE_KEY = 'hydroquest_theme'
+const STORAGE_KEY = 'slurp_theme'
 
 export function useTheme() {
   const [theme, setTheme] = useState(

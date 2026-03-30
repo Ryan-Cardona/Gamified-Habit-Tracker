@@ -22,11 +22,13 @@ import { supabase } from './lib/supabase'
 import { useTheme } from './hooks/useTheme'
 import { xpForLog, levelFromXP } from './utils/xp'
 import { computeStreakUpdate, checkStreakExpiry } from './utils/streaks'
+import { useHydrationDecay } from './hooks/useHydrationDecay'
 import './App.css'
 
 function App() {
   const { user, loading: userLoading, error: userError, updateUser } = useUser()
-  const { todayTotal, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
+  const { todayTotal, lastLogTime, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
+  const decayedTotal = useHydrationDecay(todayTotal, lastLogTime)
   const { challenges, loading: challengesLoading, updateProgress } = useChallenges(user?.id)
 
   const { petId, selectPet } = usePetSelection()
@@ -115,7 +117,7 @@ function App() {
     updates.level = newLevel
 
     // Update pet mood
-    const newMood = getMoodFromProgress(todayTotal + amount_ml, user.daily_goal_ml)
+    const newMood = getMoodFromProgress(todayTotal + amount_ml)
     updates.pet_state = { mood: newMood, last_fed: new Date().toISOString() }
 
     await updateUser(updates)
@@ -170,11 +172,12 @@ function App() {
                 <div className="section-loading">Loading today's logs…</div>
               ) : (
                 <WaterProgress
-                  todayTotal={todayTotal}
+                  todayTotal={decayedTotal}
+                  actualTotal={todayTotal}
                   goalMl={user.daily_goal_ml}
                   centerContent={
                     <VirtualPet
-                      todayTotal={todayTotal}
+                      todayTotal={decayedTotal}
                       goalMl={user.daily_goal_ml}
                       petId={petId}
                       compact
@@ -185,7 +188,7 @@ function App() {
             </section>
 
             <section className="home-section">
-              <PetBubble todayTotal={todayTotal} goalMl={user.daily_goal_ml} />
+              <PetBubble todayTotal={decayedTotal} goalMl={user.daily_goal_ml} />
             </section>
 
             <section className="home-section">

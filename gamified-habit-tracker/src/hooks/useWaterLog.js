@@ -57,5 +57,7 @@ export function useWaterLog(userId) {
     return true
   }, [userId, logging, fetchTodayLogs])
 
-  return { logs, todayTotal, loading, logging, logWater }
+  const lastLogTime = logs[0]?.logged_at ?? null
+
+  return { logs, todayTotal, lastLogTime, loading, logging, logWater }
 }

@@ -8,11 +8,13 @@ const MOODS = {
   thriving: { label: 'Thriving', message: 'Fully hydrated, thank you!'  },
 }
 
-export function getMoodFromProgress(todayTotal, goalMl) {
-  const pct = todayTotal / goalMl
-  if (pct <= 0)  return 'thirsty'
-  if (pct < 0.5) return 'neutral'
-  if (pct < 1.0) return 'happy'
+const HYDRATION_MAX_ML = 1000 // 1 L = 100% hydration
+
+export function getMoodFromProgress(decayedTotal) {
+  const pct = decayedTotal / HYDRATION_MAX_ML
+  if (pct < 0.2)  return 'thirsty'
+  if (pct < 0.5)  return 'neutral'
+  if (pct < 0.8)  return 'happy'
   return 'thriving'
 }
 
@@ -21,7 +23,7 @@ export function getMoodFromProgress(todayTotal, goalMl) {
  * default         — image + speech bubble.
  */
 export function VirtualPet({ todayTotal, goalMl, petId = DEFAULT_PET, compact = false }) {
-  const moodKey   = getMoodFromProgress(todayTotal, goalMl)
+  const moodKey   = getMoodFromProgress(todayTotal)
   const petConfig = PETS[petId] ?? PETS[DEFAULT_PET]
   const src       = petConfig.moodImages[moodKey]
 
@@ -52,7 +54,7 @@ export function VirtualPet({ todayTotal, goalMl, petId = DEFAULT_PET, compact = 
 }
 
 export function PetBubble({ todayTotal, goalMl }) {
-  const moodKey = getMoodFromProgress(todayTotal, goalMl)
+  const moodKey = getMoodFromProgress(todayTotal)
   return (
     <div className="pet-bubble">
       <span className="pet-message">{MOODS[moodKey].message}</span>

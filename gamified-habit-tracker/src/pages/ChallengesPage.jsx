@@ -11,7 +11,7 @@ export function ChallengesPage({ challenges, loading }) {
   return (
     <div className="challenges-page">
       <div className="challenges-page-header">
-        <h1 className="challenges-page-title">🏆 Today's Challenges</h1>
+        <h1 className="challenges-page-title">🎖️ Today's Challenges</h1>
         <p className="challenges-page-sub">
           {done.length} / {challenges.length} completed
         </p>

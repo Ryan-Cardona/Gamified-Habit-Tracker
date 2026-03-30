@@ -14,6 +14,7 @@ import { ChallengeToast } from './components/ui/ChallengeToast'
 import { VirtualPet, PetBubble, getMoodFromProgress } from './components/pet/VirtualPet'
 import { PetSelector } from './components/pet/PetSelector'
 import { usePetSelection } from './hooks/usePetSelection'
+import { usePetName } from './hooks/usePetName'
 import { BottomNav } from './components/layout/BottomNav'
 import { ChallengesPage } from './pages/ChallengesPage'
 import { LeaderboardPage } from './pages/LeaderboardPage'
@@ -32,6 +33,7 @@ function App() {
   const { challenges, loading: challengesLoading, updateProgress } = useChallenges(user?.id)
 
   const { petId, selectPet } = usePetSelection()
+  const { petName, updatePetName } = usePetName()
   const { theme, toggleTheme } = useTheme()
 
   const [activeTab, setActiveTab]           = useState('home')
@@ -175,6 +177,8 @@ function App() {
                   todayTotal={decayedTotal}
                   actualTotal={todayTotal}
                   goalMl={user.daily_goal_ml}
+                  petName={petName}
+                  onNameChange={updatePetName}
                   centerContent={
                     <VirtualPet
                       todayTotal={decayedTotal}

@@ -5,6 +5,53 @@
   gap: var(--space-3);
 }
 
+/* ── Pet name above ring ── */
+.pet-name-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+}
+
+.pet-name-btn:hover {
+  background: var(--color-bg-raised);
+}
+
+.pet-name-label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.pet-name-edit {
+  font-size: 0.9rem;
+  opacity: 0.45;
+}
+
+.pet-name-form {
+  width: 100%;
+  max-width: 220px;
+}
+
+.pet-name-input {
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-bg-card);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-3);
+  outline: none;
+}
+
 /* ── Ring ── */
 .ring-wrapper {
   position: relative;

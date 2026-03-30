@@ -1,9 +1,6 @@
 import { PETS } from '../../config/pets'
 import './PetSelector.css'
 
-/**
- * Row of pet options. Tapping one switches the active pet.
- */
 export function PetSelector({ activePetId, onSelect }) {
   return (
     <div className="pet-selector">

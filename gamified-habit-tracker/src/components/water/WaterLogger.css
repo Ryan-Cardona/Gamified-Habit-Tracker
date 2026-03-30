@@ -98,13 +98,28 @@
   margin: 0;
 }
 
+/* ── Dual wheel row ── */
+.dual-wheel {
+  display: flex;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 280px;
+}
+
 /* ── Scroll wheel ── */
 .wheel-container {
   position: relative;
-  width: 100%;
-  max-width: 280px;
   height: 280px;   /* shows 5 items (5 × 56px) */
   overflow: hidden;
+  flex: 1;
+}
+
+.wheel-container--wide {
+  flex: 2;
+}
+
+.wheel-container--narrow {
+  flex: 1;
 }
 
 .wheel-highlight {

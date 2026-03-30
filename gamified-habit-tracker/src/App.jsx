@@ -4,6 +4,7 @@ import { useWaterLog } from './hooks/useWaterLog'
 import { useChallenges } from './hooks/useChallenges'
 import { WaterProgress } from './components/water/WaterProgress'
 import { WaterLogger } from './components/water/WaterLogger'
+import { GoalSetter } from './components/water/GoalSetter'
 import { XPBar } from './components/ui/XPBar'
 import { LevelUpToast } from './components/ui/LevelUpToast'
 import { StreakToast } from './components/ui/StreakToast'
@@ -189,6 +190,13 @@ function App() {
 
             <section className="home-section">
               <PetSelector activePetId={petId} onSelect={selectPet} />
+            </section>
+
+            <section className="home-section">
+              <GoalSetter
+                currentGoal={user.daily_goal_ml}
+                onGoalChange={(ml) => updateUser({ daily_goal_ml: ml })}
+              />
             </section>
 
             <section className="home-section">

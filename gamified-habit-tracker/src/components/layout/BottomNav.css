@@ -32,6 +32,22 @@
   transition: transform var(--transition-fast);
 }
 
+/* SVG icon via CSS mask — color controlled by background-color */
+.tab-icon--img {
+  display: block;
+  width: 26px;
+  height: 26px;
+  background-color: var(--color-text-muted);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  font-size: 0;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
 .tab-label {
   font-size: 0.7rem;
   color: var(--color-text-muted);
@@ -40,6 +56,10 @@
 
 .bottom-nav-tab--active .tab-icon {
   transform: scale(1.15);
+}
+
+.bottom-nav-tab--active .tab-icon--img {
+  background-color: var(--color-primary);
 }
 
 .bottom-nav-tab--active .tab-label {

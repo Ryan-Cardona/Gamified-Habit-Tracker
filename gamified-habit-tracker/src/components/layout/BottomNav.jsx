@@ -1,8 +1,8 @@
 import './BottomNav.css'
 
 const TABS = [
-  { id: 'home', label: 'Home', icon: '🏠' },
-  { id: 'help', label: 'Help', icon: '❓' },
+  { id: 'home', label: 'Home', iconSrc: '/icons/nav/home.svg' },
+  { id: 'help', label: 'Help', iconSrc: '/icons/nav/help.svg' },
 ]
 
 export function BottomNav({ active, onChange }) {
@@ -15,7 +15,10 @@ export function BottomNav({ active, onChange }) {
           onClick={() => onChange(tab.id)}
           aria-label={tab.label}
         >
-          <span className="tab-icon">{tab.icon}</span>
+          <span
+            className="tab-icon tab-icon--img"
+            style={{ WebkitMaskImage: `url(${tab.iconSrc})`, maskImage: `url(${tab.iconSrc})` }}
+          />
           <span className="tab-label">{tab.label}</span>
         </button>
       ))}

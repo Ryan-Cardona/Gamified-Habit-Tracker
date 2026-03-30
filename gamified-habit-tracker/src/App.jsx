@@ -16,7 +16,7 @@ function App() {
   const { theme, toggleTheme } = useTheme()
   const [activeTab, setActiveTab] = useState('home')
   const [showWelcome, setShowWelcome] = useState(
-    () => !localStorage.getItem('hydroquest_welcomed')
+    () => !localStorage.getItem('slurp_welcomed')
   )
 
   if (userLoading) {
@@ -24,7 +24,7 @@ function App() {
       <div className="app-shell">
         <div className="splash">
           <div className="splash-drop">💧</div>
-          <p className="splash-text">Loading HydroQuest…</p>
+          <p className="splash-text">Loading Slurp…</p>
         </div>
       </div>
     )
@@ -44,14 +44,14 @@ function App() {
     <div className="app-shell">
       {showWelcome && (
         <WelcomeModal onAccept={() => {
-          localStorage.setItem('hydroquest_welcomed', 'true')
+          localStorage.setItem('slurp_welcomed', 'true')
           setShowWelcome(false)
         }} />
       )}
 
       <div className="app-topbar">
         <header className="app-header">
-          <span className="header-title">💧 HydroQuest</span>
+          <span className="header-title">💧 Slurp</span>
         </header>
       </div>
 

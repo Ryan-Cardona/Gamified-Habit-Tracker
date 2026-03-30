@@ -51,75 +51,133 @@
   white-space: nowrap;
 }
 
-/* ── Custom amount form ── */
-.custom-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.custom-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.custom-input {
-  flex: 1;
+/* ── Log Water button ── */
+.wheel-open-btn {
+  width: 100%;
+  padding: var(--space-3);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   color: var(--color-text);
-  font-size: 1rem;
-  font-family: inherit;
-  padding: 0 var(--space-3);
-  height: var(--touch-target);
-  min-width: 0;
-  transition: border-color var(--transition-fast);
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-height: var(--touch-target);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
-.custom-input:focus {
-  outline: none;
+.wheel-open-btn:hover:not(:disabled) {
   border-color: var(--color-primary);
+  background: var(--color-bg-raised);
 }
 
-.custom-input::placeholder {
-  color: var(--color-text-muted);
+/* ── Bottom sheet backdrop ── */
+.wheel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
 }
 
-/* Remove browser number arrows */
-.custom-input::-webkit-outer-spin-button,
-.custom-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-.custom-input[type=number] {
-  -moz-appearance: textfield;
+.wheel-sheet {
+  width: 100%;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: var(--space-5) var(--space-5) calc(var(--space-6) + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
 }
 
-.custom-unit {
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
+.wheel-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ── Scroll wheel ── */
+.wheel-container {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  height: 280px;
+  overflow: hidden;
+}
+
+.wheel-highlight {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 56px;
+  transform: translateY(-50%);
+  background: var(--color-bg-raised);
+  border-top: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wheel-list {
+  height: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.wheel-list::-webkit-scrollbar {
+  display: none;
+}
+
+.wheel-pad {
+  height: 56px;
   flex-shrink: 0;
+  scroll-snap-align: none;
 }
 
-.custom-btn {
+.wheel-item {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast), font-size var(--transition-fast);
+  position: relative;
+  z-index: 2;
+}
+
+.wheel-item--selected {
+  color: var(--color-text);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* ── Log button ── */
+.wheel-log-btn {
+  width: 100%;
+  max-width: 280px;
+  padding: var(--space-4);
   background: var(--color-primary);
   color: #fff;
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0 var(--space-5);
-  height: var(--touch-target);
+  border: none;
   border-radius: var(--radius-md);
-  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  min-height: var(--touch-target);
   transition: background var(--transition-fast);
 }
 
-.custom-btn:hover:not(:disabled) {
+.wheel-log-btn:hover:not(:disabled) {
   background: var(--color-primary-dark);
-}
-
-.custom-error {
-  font-size: 0.8rem;
-  color: var(--color-danger);
-  margin: 0;
 }

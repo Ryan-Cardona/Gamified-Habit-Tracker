@@ -2,57 +2,66 @@
  * Pet registry.
  *
  * To add a new pet:
- * 1. Drop its sprite sheet into /public/pets/<id>/<id>.png
+ * 1. Drop 4 images into /public/pets/<id>/
+ *    named: <id>Thirsty.png, <id>Neutral.png, <id>Happy.png, <id>Thriving.png
  * 2. Add a new entry below following the same shape.
- *
- * Sprite sheet layout (2×2 grid, 1024×1536 total):
- *   Top-left  (col 0, row 0) → thirsty
- *   Top-right (col 1, row 0) → neutral
- *   Bottom-left  (col 0, row 1) → happy
- *   Bottom-right (col 1, row 1) → thriving
  */
-
-const SHEET = {
-  sheetWidth:  1024,
-  sheetHeight: 1024,
-  cols: 2,
-  rows: 2,
-  moodFrames: {
-    thirsty:  { col: 0, row: 0 },
-    neutral:  { col: 1, row: 0 },
-    happy:    { col: 0, row: 1 },
-    thriving: { col: 1, row: 1 },
-  },
-}
 
 export const PETS = {
   cat: {
     id:   'cat',
     name: 'Cat',
     icon: '🐱',
-    sprite: '/pets/cat/cat.png',
-    ...SHEET,
+    moodImages: {
+      thirsty:  '/pets/cat/catThirsty.png',
+      neutral:  '/pets/cat/catNeutral.png',
+      happy:    '/pets/cat/catHappy.png',
+      thriving: '/pets/cat/catThriving.png',
+    },
   },
   dog: {
     id:   'dog',
     name: 'Dog',
     icon: '🐶',
-    sprite: '/pets/dog/Dog.png',
-    ...SHEET,
+    moodImages: {
+      thirsty:  '/pets/dog/dogThirsty.png',
+      neutral:  '/pets/dog/dogNeutral.png',
+      happy:    '/pets/dog/dogHappy.png',
+      thriving: '/pets/dog/dogThriving.png',
+    },
   },
   panda: {
     id:   'panda',
     name: 'Panda',
     icon: '🐼',
-    sprite: '/pets/panda/Panda.png',
-    ...SHEET,
+    moodImages: {
+      thirsty:  '/pets/panda/pandaThirsty.png',
+      neutral:  '/pets/panda/pandaNeutral.png',
+      happy:    '/pets/panda/pandaHappy.png',
+      thriving: '/pets/panda/pandaThriving.png',
+    },
   },
   bird: {
     id:   'bird',
     name: 'Bird',
     icon: '🐦',
-    sprite: '/pets/bird/Bird.png',
-    ...SHEET,
+    moodImages: {
+      thirsty:  '/pets/bird/birdThirsty.png',
+      neutral:  '/pets/bird/birdNeutral.png',
+      happy:    '/pets/bird/birdHappy.png',
+      thriving: '/pets/bird/birdThriving.png',
+    },
+  },
+  dinosaur: {
+    id:   'dinosaur',
+    name: 'Dinosaur',
+    icon: '🦕',
+    moodImages: {
+      thirsty:  '/pets/dinosaur/dinosaurThirsty.png',
+      neutral:  '/pets/dinosaur/dinosaurNeutral.png',
+      happy:    '/pets/dinosaur/dinosaurHappy.png',
+      thriving: '/pets/dinosaur/dinosaurThriving.png',
+    },
   },
 }
 

@@ -24,14 +24,19 @@
 .virtual-pet--thirsty  .pet-asset { border-color: var(--color-danger);  }
 .virtual-pet--neutral  .pet-asset { border-color: var(--color-warning); }
 
-.pet-sprite {
+/* ── Pet image ── */
+.pet-img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
   animation: petBob 2.5s ease-in-out infinite;
-  /* width/height set via inline style from getSpriteStyle() */
 }
 
-.pet-sprite--compact {
-  /* margin-top is set per-mood via inline style in VirtualPet.jsx
-     using the base offset + moodFrames[mood].yOffset from pets.js */
+/* Inside the ring — adjust size here */
+.pet-img--compact {
+  width: 175px;
+  height: 175px;
+  object-fit: contain;
 }
 
 /* ── Speech bubble ── */
@@ -75,26 +80,26 @@
 
 /* ── Animations ── */
 @keyframes petBob {
-  0%, 100% { transform: translateY(0);   }
+  0%, 100% { transform: translateY(0);    }
   50%       { transform: translateY(-3px); }
 }
 
-.virtual-pet--thriving .pet-sprite,
-.pet-sprite--compact.virtual-pet--thriving {
+.virtual-pet--thriving .pet-img,
+.pet-img--compact.virtual-pet--thriving {
   animation: petBounce 1.2s ease-in-out infinite;
 }
 
-.virtual-pet--thirsty .pet-sprite,
-.pet-sprite--compact.virtual-pet--thirsty {
+.virtual-pet--thirsty .pet-img,
+.pet-img--compact.virtual-pet--thirsty {
   animation: petDroop 3s ease-in-out infinite;
 }
 
 @keyframes petBounce {
-  0%, 100% { transform: translateY(0)   scale(1);    }
+  0%, 100% { transform: translateY(0)    scale(1);    }
   40%       { transform: translateY(-4px) scale(1.05); }
 }
 
 @keyframes petDroop {
-  0%, 100% { transform: translateY(0) rotate(0deg);      }
+  0%, 100% { transform: translateY(0)   rotate(0deg);  }
   50%       { transform: translateY(2px) rotate(-3deg); }
 }

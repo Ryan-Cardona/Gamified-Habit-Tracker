@@ -4,13 +4,14 @@ import { useWaterLog } from './hooks/useWaterLog'
 import { useTheme } from './hooks/useTheme'
 import { WaterProgress } from './components/water/WaterProgress'
 import { WaterLogger } from './components/water/WaterLogger'
+import { GoalSetter } from './components/water/GoalSetter'
 import { WelcomeModal } from './components/ui/WelcomeModal'
 import { BottomNav } from './components/layout/BottomNav'
 import { HelpPage } from './pages/HelpPage'
 import './App.css'
 
 function App() {
-  const { user, loading: userLoading, error: userError } = useUser()
+  const { user, loading: userLoading, error: userError, updateUser } = useUser()
   const { todayTotal, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
   const { theme, toggleTheme } = useTheme()
   const [activeTab, setActiveTab] = useState('home')
@@ -76,6 +77,13 @@ function App() {
                   goalMl={user.daily_goal_ml}
                 />
               )}
+            </section>
+
+            <section className="home-section">
+              <GoalSetter
+                currentGoal={user.daily_goal_ml}
+                onGoalChange={(ml) => updateUser({ daily_goal_ml: ml })}
+              />
             </section>
 
             <section className="home-section">

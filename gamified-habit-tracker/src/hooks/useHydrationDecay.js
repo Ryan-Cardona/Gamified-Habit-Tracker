@@ -33,7 +33,7 @@ function computeFactor(timestamp) {
  * @param {number} todayTotal   - actual ml logged today (from Supabase)
  * @param {string} lastLogTime  - ISO timestamp of the most recent log
  */
-export function useHydrationDecay(todayTotal, lastLogTime) {
+export function useHydrationDecay(todayTotal, lastLogTime, loading = false) {
   // peak = hydration level at the moment of last log; decays from there
   const [peak, setPeak]         = useState(() => {
     const stored = loadState()
@@ -44,7 +44,8 @@ export function useHydrationDecay(todayTotal, lastLogTime) {
     return stored?.timestamp ?? lastLogTime
   })
 
-  const prevTotalRef = useRef(todayTotal)
+  const prevTotalRef = useRef(null) // null = not yet seeded after load
+  const loadedRef    = useRef(false)
   const peakRef      = useRef(peak)
   const tsRef        = useRef(timestamp)
 
@@ -52,8 +53,17 @@ export function useHydrationDecay(todayTotal, lastLogTime) {
   useEffect(() => { peakRef.current = peak },     [peak])
   useEffect(() => { tsRef.current   = timestamp }, [timestamp])
 
-  // Detect a new water log
+  // Detect a new water log — ignore the initial fetch from Supabase
   useEffect(() => {
+    if (loading) return
+
+    if (!loadedRef.current) {
+      // First time loading completes: seed the ref with the real total, no-op
+      loadedRef.current      = true
+      prevTotalRef.current   = todayTotal
+      return
+    }
+
     const added = todayTotal - prevTotalRef.current
     prevTotalRef.current = todayTotal
     if (added <= 0) return
@@ -66,7 +76,7 @@ export function useHydrationDecay(todayTotal, lastLogTime) {
     saveState(newPeak, now)
     setPeak(newPeak)
     setTimestamp(now)
-  }, [todayTotal])
+  }, [todayTotal, loading])
 
   // Live display value — recomputed every second (debug) / minute (prod)
   const [displayed, setDisplayed] = useState(() =>

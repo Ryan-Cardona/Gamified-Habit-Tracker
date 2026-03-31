@@ -24,14 +24,16 @@ import { useTheme } from './hooks/useTheme'
 import { xpForLog, levelFromXP } from './utils/xp'
 import { computeStreakUpdate, checkStreakExpiry } from './utils/streaks'
 import { useHydrationDecay } from './hooks/useHydrationDecay'
+import { usePetSound } from './hooks/usePetSound'
 import './App.css'
 
 function App() {
   const { user, loading: userLoading, error: userError, updateUser } = useUser()
   const { todayTotal, lastLogTime, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
-  const decayedTotal = useHydrationDecay(todayTotal, lastLogTime)
+  const decayedTotal = useHydrationDecay(todayTotal, lastLogTime, logsLoading)
   const { challenges, loading: challengesLoading, updateProgress } = useChallenges(user?.id)
 
+  const { playLogSound } = usePetSound()
   const { petId, selectPet } = usePetSelection()
   const { petName, updatePetName } = usePetName()
   const { theme, toggleTheme } = useTheme()
@@ -80,6 +82,8 @@ function App() {
   async function handleLogWater(amount_ml) {
     const success = await logWater(amount_ml)
     if (!success) return
+
+    playLogSound()
 
     const updates = {}
 

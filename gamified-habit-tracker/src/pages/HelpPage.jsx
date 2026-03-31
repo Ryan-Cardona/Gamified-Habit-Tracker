@@ -10,6 +10,14 @@ const IOS_STEPS = [
   'The app will now appear on your home screen like a regular app.',
 ]
 
+const ANDROID_STEPS = [
+  'Open this app in Chrome.',
+  'Tap the three-dot menu (⋮) in the top-right corner.',
+  'Tap "Add to Home screen".',
+  'Tap "Add" to confirm.',
+  'The app will now appear on your home screen like a regular app.',
+]
+
 function FaqItem({ question, children }) {
   const [open, setOpen] = useState(false)
   return (
@@ -32,12 +40,12 @@ export function HelpPage() {
 
       <div className="faq-list">
 
-        <FaqItem question="How do I add this app to my home screen?">
+        <FaqItem question="How do I add this app to my home screen on Apple devices?">
           {isInstalled ? (
             <p className="faq-installed">
               ✅ Slurp is already installed on your device!
             </p>
-          ) : isIOS ? (
+          ) : (
             <div className="faq-ios">
               <p>Follow these steps in <strong>Safari</strong>:</p>
               <ol className="faq-steps">
@@ -46,6 +54,14 @@ export function HelpPage() {
                 ))}
               </ol>
             </div>
+          )}
+        </FaqItem>
+
+        <FaqItem question="How do I add this app to my home screen on Android?">
+          {isInstalled ? (
+            <p className="faq-installed">
+              ✅ Slurp is already installed on your device!
+            </p>
           ) : canInstall ? (
             <div className="faq-android">
               <p>Tap the button below to install Slurp on your home screen:</p>
@@ -54,10 +70,14 @@ export function HelpPage() {
               </button>
             </div>
           ) : (
-            <p>
-              Open this page in Chrome on Android, or Safari on iPhone/iPad,
-              then use your browser's "Add to Home Screen" option.
-            </p>
+            <div className="faq-android">
+              <p>Follow these steps in <strong>Chrome</strong>:</p>
+              <ol className="faq-steps">
+                {ANDROID_STEPS.map((step, i) => (
+                  <li key={i}>{step}</li>
+                ))}
+              </ol>
+            </div>
           )}
         </FaqItem>
 

@@ -31,7 +31,7 @@ function App() {
   const { user, loading: userLoading, error: userError, updateUser } = useUser()
   const { todayTotal, lastLogTime, loading: logsLoading, logging, logWater } = useWaterLog(user?.id)
   const decayedTotal = useHydrationDecay(todayTotal, lastLogTime, logsLoading)
-  const { challenges, loading: challengesLoading, updateProgress } = useChallenges(user?.id)
+  const { challenges, loading: challengesLoading, updateProgress } = useChallenges(user?.id, user?.daily_goal_ml)
 
   const { playLogSound } = usePetSound()
   const { petId, selectPet } = usePetSelection()
@@ -200,7 +200,7 @@ function App() {
             </section>
 
             <section className="home-section">
-              <PetSelector activePetId={petId} onSelect={selectPet} />
+              <PetSelector activePetId={petId} onSelect={selectPet} userLevel={user.level} userStreak={user.streak_current} />
             </section>
 
             <section className="home-section">
@@ -220,6 +220,8 @@ function App() {
           <ChallengesPage
             challenges={challenges}
             loading={challengesLoading}
+            userLevel={user.level}
+            userStreak={user.streak_current}
           />
         )}
 

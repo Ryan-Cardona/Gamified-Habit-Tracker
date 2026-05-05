@@ -37,6 +37,17 @@
   gap: var(--space-3);
 }
 
+.pet-unlock-level {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+}
+
 .challenges-divider {
   font-size: 0.75rem;
   font-weight: 700;

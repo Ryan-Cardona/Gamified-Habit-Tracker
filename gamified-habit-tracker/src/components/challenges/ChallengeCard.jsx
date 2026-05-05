@@ -13,7 +13,8 @@ function formatProgress(metric, progress, target) {
  */
 export function ChallengeCard({ userChallenge }) {
   const { challenge, progress, completed } = userChallenge
-  const pct = Math.min(progress / challenge.target_value, 1)
+  const target = challenge.effective_target ?? challenge.target_value
+  const pct = Math.min(progress / target, 1)
 
   return (
     <div className={`challenge-card card ${completed ? 'challenge-card--done' : ''}`}>
@@ -33,7 +34,7 @@ export function ChallengeCard({ userChallenge }) {
         <span className="challenge-progress">
           {completed
             ? '✓ Done'
-            : formatProgress(challenge.metric, progress, challenge.target_value)
+            : formatProgress(challenge.metric, progress, target)
           }
         </span>
       </div>

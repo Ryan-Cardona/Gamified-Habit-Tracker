@@ -1,12 +1,52 @@
 import { ChallengeCard } from '../components/challenges/ChallengeCard'
+import { PETS, isPetUnlocked } from '../config/pets'
 import './ChallengesPage.css'
 
-/**
- * Full challenges page — shows all of today's challenges.
- */
-export function ChallengesPage({ challenges, loading }) {
+function PetUnlockCard({ pet, userLevel, userStreak }) {
+  const unlocked = isPetUnlocked(pet, { userLevel, userStreak })
+
+  let pct, progressLabel, badgeLabel, description
+
+  if (pet.unlockStreak != null) {
+    pct          = Math.min(userStreak / pet.unlockStreak, 1)
+    progressLabel = unlocked ? '✓ Unlocked' : `${userStreak} / ${pet.unlockStreak} days`
+    badgeLabel   = `${pet.unlockStreak}🔥`
+    description  = unlocked
+      ? 'Unlocked and ready to use!'
+      : `Keep a ${pet.unlockStreak}-day streak to unlock this pet.`
+  } else {
+    pct          = Math.min(userLevel / pet.unlockLevel, 1)
+    progressLabel = unlocked ? '✓ Unlocked' : `Lv.${userLevel} / ${pet.unlockLevel}`
+    badgeLabel   = `Lv.${pet.unlockLevel}`
+    description  = unlocked
+      ? 'Unlocked and ready to use!'
+      : `Reach level ${pet.unlockLevel} to unlock this pet.`
+  }
+
+  return (
+    <div className={`challenge-card card ${unlocked ? 'challenge-card--done' : ''}`}>
+      <div className="challenge-header">
+        <span className="challenge-title">{pet.icon} {pet.name}</span>
+        <span className="pet-unlock-level">{badgeLabel}</span>
+      </div>
+      <p className="challenge-desc">{description}</p>
+      <div className="challenge-footer">
+        <div className="challenge-track">
+          <div className="challenge-fill" style={{ width: `${pct * 100}%` }} />
+        </div>
+        <span className="challenge-progress">{progressLabel}</span>
+      </div>
+    </div>
+  )
+}
+
+export function ChallengesPage({ challenges, loading, userLevel, userStreak }) {
   const done    = challenges.filter(uc => uc.completed)
   const pending = challenges.filter(uc => !uc.completed)
+
+  const pets         = Object.values(PETS)
+  const lockedPets   = pets.filter(p => !isPetUnlocked(p, { userLevel, userStreak }))
+  const unlockedPets = pets.filter(p =>  isPetUnlocked(p, { userLevel, userStreak }))
 
   return (
     <div className="challenges-page">
@@ -34,6 +74,16 @@ export function ChallengesPage({ challenges, loading }) {
           )}
         </div>
       )}
+
+      <div className="challenges-page-list">
+        <p className="challenges-divider">Pet Unlocks</p>
+        {lockedPets.map(pet => (
+          <PetUnlockCard key={pet.id} pet={pet} userLevel={userLevel} userStreak={userStreak} />
+        ))}
+        {unlockedPets.map(pet => (
+          <PetUnlockCard key={pet.id} pet={pet} userLevel={userLevel} userStreak={userStreak} />
+        ))}
+      </div>
     </div>
   )
 }

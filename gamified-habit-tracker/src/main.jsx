@@ -10,6 +10,10 @@ if ('serviceWorker' in navigator) {
       console.warn('Service worker registration failed:', err)
     })
   })
+  // When a new SW takes over (new deployment), reload all open tabs automatically
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    window.location.reload()
+  })
 }
 
 createRoot(document.getElementById('root')).render(

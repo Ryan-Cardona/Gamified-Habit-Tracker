@@ -14,7 +14,7 @@
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: var(--space-8) var(--space-6);
+  padding: var(--space-8) var(--space-6) var(--space-6);
   max-width: 380px;
   width: 100%;
   display: flex;
@@ -23,6 +23,17 @@
   gap: var(--space-4);
   text-align: center;
   animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Animated content area — re-fades on each step change via key */
+.welcome-step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 180px;
+  animation: stepFadeIn 0.25s ease;
 }
 
 .welcome-icon {
@@ -43,14 +54,41 @@
   margin: 0;
 }
 
-.welcome-btn {
-  margin-top: var(--space-2);
+/* ── Step dots ── */
+.welcome-dots {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.welcome-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+  transition: background var(--transition-base), transform var(--transition-base);
+}
+
+.welcome-dot--active {
+  background: var(--color-primary);
+  transform: scale(1.35);
+}
+
+/* ── Navigation buttons ── */
+.welcome-actions {
+  display: flex;
+  gap: var(--space-3);
   width: 100%;
+  margin-top: var(--space-2);
+}
+
+.welcome-btn {
+  flex: 1;
   background: var(--color-primary);
   color: #fff;
   font-weight: 600;
   font-size: 1rem;
-  padding: 0 var(--space-6);
+  padding: 0 var(--space-4);
   height: 48px;
   border-radius: var(--radius-md);
   transition: background var(--transition-fast);
@@ -60,6 +98,16 @@
   background: var(--color-primary-dark);
 }
 
+.welcome-btn--secondary {
+  background: var(--color-bg-raised);
+  color: var(--color-text-secondary);
+}
+
+.welcome-btn--secondary:hover {
+  background: var(--color-border);
+}
+
+/* ── Animations ── */
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -68,4 +116,9 @@
 @keyframes popIn {
   from { transform: scale(0.85); opacity: 0; }
   to   { transform: scale(1);    opacity: 1; }
+}
+
+@keyframes stepFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
 }

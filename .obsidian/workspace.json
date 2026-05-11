@@ -201,6 +201,27 @@
   },
   "active": "928efc3e11ea587c",
   "lastOpenFiles": [
+    "gamified-habit-tracker/WebGL-Assignment",
+    "gamified-habit-tracker/src/utils/xp.js",
+    "gamified-habit-tracker/src/utils/streaks.js",
+    "gamified-habit-tracker/src/utils",
+    "gamified-habit-tracker/src/pages/LeaderboardPage.jsx",
+    "gamified-habit-tracker/src/pages/LeaderboardPage.css",
+    "gamified-habit-tracker/src/pages/ChallengesPage.jsx",
+    "gamified-habit-tracker/src/pages/ChallengesPage.css",
+    "gamified-habit-tracker/src/hooks/usePetSound.js",
+    "gamified-habit-tracker/src/hooks/usePetSelection.js",
+    "gamified-habit-tracker/src/hooks/usePetName.js",
+    "gamified-habit-tracker/public/pets/panda/pandaThriving.png",
+    "gamified-habit-tracker/public/pets/panda/pandaThirsty.png",
+    "gamified-habit-tracker/public/pets/panda/pandaNeutral.png",
+    "gamified-habit-tracker/public/pets/panda/pandaHappy.png",
+    "gamified-habit-tracker/public/pets/panda/Panda.png",
+    "gamified-habit-tracker/public/pets/dog/dogThriving.png",
+    "gamified-habit-tracker/public/pets/dog/dogThirsty.png",
+    "gamified-habit-tracker/public/pets/dog/dogNeutral.png",
+    "gamified-habit-tracker/public/pets/dog/dogHappy.png",
+    "gamified-habit-tracker/public/pets/dog/Dog.png",
     "Welcome.md"
   ]
 }

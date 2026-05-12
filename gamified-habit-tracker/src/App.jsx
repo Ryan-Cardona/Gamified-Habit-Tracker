@@ -10,6 +10,7 @@ import { LevelUpToast } from './components/ui/LevelUpToast'
 import { StreakToast } from './components/ui/StreakToast'
 import { StreakBadge } from './components/ui/StreakBadge'
 import { WelcomeModal } from './components/ui/WelcomeModal'
+import { InAppBrowserModal, isInAppBrowser } from './components/ui/InAppBrowserModal'
 import { ChallengeToast } from './components/ui/ChallengeToast'
 import { VirtualPet, PetBubble, getMoodFromProgress } from './components/pet/VirtualPet'
 import { PetSelector } from './components/pet/PetSelector'
@@ -45,6 +46,7 @@ function App() {
   const [showWelcome, setShowWelcome]       = useState(
     () => !localStorage.getItem('slurp_welcomed')
   )
+  const [showInAppWarning, setShowInAppWarning] = useState(() => isInAppBrowser())
 
   useEffect(() => {
     if (!user) return
@@ -131,6 +133,9 @@ function App() {
 
   return (
     <div className="app-shell">
+      {showInAppWarning && (
+        <InAppBrowserModal onDismiss={() => setShowInAppWarning(false)} />
+      )}
       {showWelcome && (
         <WelcomeModal onAccept={() => {
           localStorage.setItem('slurp_welcomed', 'true')

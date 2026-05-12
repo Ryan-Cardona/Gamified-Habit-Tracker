@@ -11,13 +11,13 @@ function lockAriaLabel(pet) {
   return `${pet.name} — unlocks at level ${pet.unlockLevel}`
 }
 
-export function PetSelector({ activePetId, onSelect, userLevel, userStreak }) {
+export function PetSelector({ activePetId, onSelect, userLevel, userStreak, userLongestStreak = 0 }) {
   return (
     <div className="pet-selector">
       <span className="pet-selector-label">Choose your pet</span>
       <div className="pet-selector-options">
         {Object.values(PETS).map((pet) => {
-          const locked = !isPetUnlocked(pet, { userLevel, userStreak })
+          const locked = !isPetUnlocked(pet, { userLevel, userStreak, userLongestStreak })
           return (
             <button
               key={pet.id}

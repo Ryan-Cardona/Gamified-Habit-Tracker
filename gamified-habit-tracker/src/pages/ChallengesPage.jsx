@@ -2,14 +2,15 @@ import { ChallengeCard } from '../components/challenges/ChallengeCard'
 import { PETS, isPetUnlocked } from '../config/pets'
 import './ChallengesPage.css'
 
-function PetUnlockCard({ pet, userLevel, userStreak }) {
-  const unlocked = isPetUnlocked(pet, { userLevel, userStreak })
+function PetUnlockCard({ pet, userLevel, userStreak, userLongestStreak = 0 }) {
+  const unlocked = isPetUnlocked(pet, { userLevel, userStreak, userLongestStreak })
 
   let pct, progressLabel, badgeLabel, description
 
   if (pet.unlockStreak != null) {
-    pct          = Math.min(userStreak / pet.unlockStreak, 1)
-    progressLabel = unlocked ? '✓ Unlocked' : `${userStreak} / ${pet.unlockStreak} days`
+    const bestStreak = Math.max(userStreak, userLongestStreak)
+    pct          = Math.min(bestStreak / pet.unlockStreak, 1)
+    progressLabel = unlocked ? '✓ Unlocked' : `${bestStreak} / ${pet.unlockStreak} days`
     badgeLabel   = `${pet.unlockStreak}🔥`
     description  = unlocked
       ? 'Unlocked and ready to use!'
@@ -40,13 +41,13 @@ function PetUnlockCard({ pet, userLevel, userStreak }) {
   )
 }
 
-export function ChallengesPage({ challenges, loading, userLevel, userStreak }) {
+export function ChallengesPage({ challenges, loading, userLevel, userStreak, userLongestStreak = 0 }) {
   const done    = challenges.filter(uc => uc.completed)
   const pending = challenges.filter(uc => !uc.completed)
 
   const pets         = Object.values(PETS)
-  const lockedPets   = pets.filter(p => !isPetUnlocked(p, { userLevel, userStreak }))
-  const unlockedPets = pets.filter(p =>  isPetUnlocked(p, { userLevel, userStreak }))
+  const lockedPets   = pets.filter(p => !isPetUnlocked(p, { userLevel, userStreak, userLongestStreak }))
+  const unlockedPets = pets.filter(p =>  isPetUnlocked(p, { userLevel, userStreak, userLongestStreak }))
 
   return (
     <div className="challenges-page">
@@ -78,10 +79,10 @@ export function ChallengesPage({ challenges, loading, userLevel, userStreak }) {
       <div className="challenges-page-list">
         <p className="challenges-divider">Pet Unlocks</p>
         {lockedPets.map(pet => (
-          <PetUnlockCard key={pet.id} pet={pet} userLevel={userLevel} userStreak={userStreak} />
+          <PetUnlockCard key={pet.id} pet={pet} userLevel={userLevel} userStreak={userStreak} userLongestStreak={userLongestStreak} />
         ))}
         {unlockedPets.map(pet => (
-          <PetUnlockCard key={pet.id} pet={pet} userLevel={userLevel} userStreak={userStreak} />
+          <PetUnlockCard key={pet.id} pet={pet} userLevel={userLevel} userStreak={userStreak} userLongestStreak={userLongestStreak} />
         ))}
       </div>
     </div>

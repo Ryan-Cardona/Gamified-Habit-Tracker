@@ -60,7 +60,7 @@ export const PETS = {
     id:           'dinosaur',
     name:         'Dinosaur',
     icon:         '🦕',
-    unlockStreak: 3,
+    unlockStreak: 2,
     moodImages: {
       thirsty:  '/pets/dinosaur/dinosaurThirsty.png',
       neutral:  '/pets/dinosaur/dinosaurNeutral.png',
@@ -72,9 +72,11 @@ export const PETS = {
 
 export const DEFAULT_PET = 'cat'
 
-/** Returns true if the user has met this pet's unlock condition. */
-export function isPetUnlocked(pet, { userLevel, userStreak }) {
-  if (pet.unlockLevel  != null) return userLevel  >= pet.unlockLevel
-  if (pet.unlockStreak != null) return userStreak >= pet.unlockStreak
+/** Returns true if the user has met this pet's unlock condition.
+ *  Streak-based pets check the all-time best streak so they stay unlocked
+ *  even if the current streak is later broken. */
+export function isPetUnlocked(pet, { userLevel, userStreak, userLongestStreak = 0 }) {
+  if (pet.unlockLevel  != null) return userLevel >= pet.unlockLevel
+  if (pet.unlockStreak != null) return Math.max(userStreak, userLongestStreak) >= pet.unlockStreak
   return true
 }

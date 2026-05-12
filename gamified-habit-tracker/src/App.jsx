@@ -205,7 +205,7 @@ function App() {
             </section>
 
             <section className="home-section">
-              <PetSelector activePetId={petId} onSelect={selectPet} userLevel={user.level} userStreak={user.streak_current} />
+              <PetSelector activePetId={petId} onSelect={selectPet} userLevel={user.level} userStreak={user.streak_current} userLongestStreak={user.streak_longest} />
             </section>
 
             <section className="home-section">
@@ -227,6 +227,7 @@ function App() {
             loading={challengesLoading}
             userLevel={user.level}
             userStreak={user.streak_current}
+            userLongestStreak={user.streak_longest}
           />
         )}
 

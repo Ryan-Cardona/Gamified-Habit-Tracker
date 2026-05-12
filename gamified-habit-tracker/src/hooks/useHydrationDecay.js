@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 
-const GRACE_MINUTES = 0.1  // DEBUG: ~6 seconds grace
-const DECAY_MINUTES = 1    // DEBUG: full decay over ~1 minute
-const HYDRATION_MAX = 1000 // 1 L = 100%
-const STORAGE_KEY   = 'slurp_hydration'
+const GRACE_MINUTES      = 60           // no decay for the first hour
+const DECAY_ML_PER_MIN   = 150 / 60     // 150 ml/hr = 2.5 ml/min
+const HYDRATION_MAX      = 1000         // 1 L = 100%
+const STORAGE_KEY        = 'slurp_hydration'
 
 // ── Restore / persist hydration state across page reloads ──────────────────
 function loadState() {
@@ -17,11 +17,11 @@ function saveState(peak, timestamp) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ peak, timestamp }))
 }
 
-function computeFactor(timestamp) {
+function computeDecayed(peak, timestamp) {
   if (!timestamp) return 0
   const minutes = (Date.now() - new Date(timestamp).getTime()) / 60_000
-  if (minutes <= GRACE_MINUTES) return 1
-  return Math.max(0, 1 - (minutes - GRACE_MINUTES) / DECAY_MINUTES)
+  if (minutes <= GRACE_MINUTES) return peak
+  return Math.max(0, peak - DECAY_ML_PER_MIN * (minutes - GRACE_MINUTES))
 }
 
 /**
@@ -69,7 +69,7 @@ export function useHydrationDecay(todayTotal, lastLogTime, loading = false) {
     if (added <= 0) return
 
     // Add logged amount to current decayed level (don't reset to full total)
-    const currentLevel = peakRef.current * computeFactor(tsRef.current)
+    const currentLevel = computeDecayed(peakRef.current, tsRef.current)
     const newPeak      = Math.min(currentLevel + added, HYDRATION_MAX)
     const now          = new Date().toISOString()
 
@@ -80,15 +80,15 @@ export function useHydrationDecay(todayTotal, lastLogTime, loading = false) {
 
   // Live display value — recomputed every second (debug) / minute (prod)
   const [displayed, setDisplayed] = useState(() =>
-    Math.round(peak * computeFactor(timestamp))
+    Math.round(computeDecayed(peak, timestamp))
   )
 
   useEffect(() => {
     function tick() {
-      setDisplayed(Math.round(peakRef.current * computeFactor(tsRef.current)))
+      setDisplayed(Math.round(computeDecayed(peakRef.current, tsRef.current)))
     }
     tick()
-    const id = setInterval(tick, 1_000) // DEBUG: 1s — change to 60_000 for prod
+    const id = setInterval(tick, 60_000) // update every minute
     return () => clearInterval(id)
   }, [peak, timestamp])
 

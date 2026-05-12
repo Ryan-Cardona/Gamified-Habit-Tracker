@@ -3,11 +3,13 @@ import './InAppBrowserModal.css'
 
 export function isInAppBrowser() {
   const ua = navigator.userAgent || ''
-  return (
+
+  // Named in-app browsers (Android + iOS)
+  if (
     /FBAN|FBAV|FBIOS|FB_IAB|FBDV/i.test(ua) ||         // Facebook
     /Instagram/i.test(ua) ||                              // Instagram
     /Twitter/i.test(ua) ||                                // Twitter / X
-    /Discord/i.test(ua) ||                                // Discord
+    /Discord/i.test(ua) ||                                // Discord (Android)
     /Snapchat/i.test(ua) ||                               // Snapchat
     /musical_ly|BytedanceWebview|TikTok/i.test(ua) ||    // TikTok
     /LinkedIn/i.test(ua) ||                               // LinkedIn
@@ -15,7 +17,13 @@ export function isInAppBrowser() {
     /GSA\//i.test(ua) ||                                  // Google Search App (Gmail on iOS)
     // Generic Android WebView — Chrome UA with the "wv" flag
     (/Android/i.test(ua) && /\bwv\b/.test(ua))
-  )
+  ) return true
+
+  // Generic iOS in-app browser (WKWebView) — has iPhone/iPad but lacks Safari/
+  // Regular Safari and Chrome on iOS both include "Safari/" at the end; WKWebView does not.
+  if (/iPhone|iPad/i.test(ua) && !/Safari\//i.test(ua)) return true
+
+  return false
 }
 
 export function InAppBrowserModal({ onDismiss }) {

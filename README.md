@@ -1,5 +1,7 @@
 # Slurp — Hydration Tracker (Non-Gamified)
 
+**Live app:** https://gamified-habit-tracker-pxt0messn-ryan-cardonas-projects.vercel.app
+
 A Progressive Web App (PWA) for tracking daily water intake, built as part of an MCAST DGD research study on how gamification affects hydration habits.
 
 This branch is the **non-gamified control version**. For the version with pets, XP, and challenges, see the [`main`](../../tree/main) branch.
